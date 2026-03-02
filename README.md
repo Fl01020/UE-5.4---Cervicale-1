@@ -1,7 +1,7 @@
 # Module e-learning — Évaluation clinique du rachis cervical
 **Cas clinique : Monsieur F, 53 ans, plombier**
 
-Module interactif de simulation clinique pour la formation en kinésithérapie. L'étudiant mène une anamnèse libre, analyse les données, conduit un examen clinique et raisonne jusqu'au diagnostic et à la prise en charge.
+Module interactif de simulation clinique pour la formation en thérapie manuelle. L'étudiant mène une anamnèse libre, analyse les données, conduit un examen clinique et raisonne jusqu'au diagnostic focntionnel.
 
 ---
 
