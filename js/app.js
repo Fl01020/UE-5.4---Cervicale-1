@@ -16,6 +16,7 @@ const App = (() => {
   let navHistory   = [];
   let errors       = 0;
   let totalChoices = 0;
+  let mobileUserClosed = false;   // vrai si l'utilisateur a fermé le dossier sur mobile
 
   // État interrogatoire anamnèse
   let interrogatoire = {
@@ -192,12 +193,34 @@ const App = (() => {
 
   function showDossier() {
     const p = dom.dossierPanel();
-    if (p) p.classList.add('visible');
+    if (!p) return;
+    document.body.classList.add('dossier-available');
+    // Sur mobile, respecter le choix de l'utilisateur s'il a fermé manuellement
+    if (window.innerWidth > 700 || !mobileUserClosed) {
+      p.classList.add('visible');
+      document.body.classList.add('dossier-open');
+    }
   }
 
   function hideDossier() {
     const p = dom.dossierPanel();
     if (p) p.classList.remove('visible');
+    document.body.classList.remove('dossier-available', 'dossier-open');
+    mobileUserClosed = false;
+  }
+
+  function closeDossierMobile() {
+    const p = dom.dossierPanel();
+    if (p) p.classList.remove('visible');
+    document.body.classList.remove('dossier-open');
+    mobileUserClosed = true;
+  }
+
+  function openDossierMobile() {
+    const p = dom.dossierPanel();
+    if (p) p.classList.add('visible');
+    document.body.classList.add('dossier-open');
+    mobileUserClosed = false;
   }
 
   function addDossierField(field) {
@@ -374,6 +397,15 @@ const App = (() => {
         renderCerveauBranche(step);
         break;
       case 'conclusion':
+        renderStandard(step, stepId);
+        // SCORM : rapport de score et de complétion à la fin du parcours
+        {
+          const scorePct = totalChoices
+            ? Math.round(((totalChoices - errors) / totalChoices) * 100)
+            : 100;
+          SCORM.reportCompletion(scorePct, 70); // masteryscore = 70
+        }
+        break;
       case 'recap':
         renderStandard(step, stepId);
         break;
@@ -1745,6 +1777,19 @@ const App = (() => {
         markersEl.appendChild(m);
       });
     }
+
+    // Boutons toggle dossier mobile
+    const closeBtn  = document.getElementById('dossier-close-btn');
+    const fab       = document.getElementById('dossier-fab');
+    const backdrop  = document.getElementById('dossier-backdrop');
+    if (closeBtn)  closeBtn.addEventListener('click', closeDossierMobile);
+    if (fab)       fab.addEventListener('click', openDossierMobile);
+    if (backdrop)  backdrop.addEventListener('click', closeDossierMobile);
+
+    // SCORM : initialisation de la session LMS
+    SCORM.init();
+    window.addEventListener('beforeunload', () => SCORM.finish());
+
     render('Start');
   }
 

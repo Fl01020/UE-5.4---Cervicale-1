@@ -1,5 +1,5 @@
-<?xml version="1.0" standalone="no" ?>
-<manifest identifier="rachis-cervical-v1" version="1.2"
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<manifest identifier="rachis-cervical-v1" version="1.0"
   xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2"
   xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -28,6 +28,7 @@
       adlcp:scormtype="sco" href="index.html">
       <file href="index.html"/>
       <file href="css/style.css"/>
+      <file href="js/scorm-api.js"/>
       <file href="js/scenarios.js"/>
       <file href="js/app.js"/>
     </resource>

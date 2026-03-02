@@ -1543,3 +1543,78 @@ body {
   .cerveau-conduite { padding: 10px 12px; }
   .cerveau-feedback { padding: 10px 12px; }
 }
+
+/* ============================================================
+   TOGGLE DOSSIER MOBILE
+   ============================================================ */
+
+/* ——— Bouton fermer (✕) dans le header du dossier ——— */
+.dossier-close-btn {
+  display: none;           /* masqué sur desktop */
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-3);
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-left: auto;
+  flex-shrink: 0;
+  transition: color .15s ease, background .15s ease;
+}
+
+/* ——— Backdrop semi-transparent ——— */
+.dossier-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 190;            /* entre choices-wrap (90) et dossier-panel (200) */
+}
+
+/* ——— Bouton flottant pour rouvrir le dossier ——— */
+.dossier-fab {
+  display: none;           /* masqué par défaut, affiché via class sur mobile */
+  position: fixed;
+  bottom: 104px;           /* au-dessus de choices-wrap */
+  right: 16px;
+  z-index: 150;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 24px;
+  padding: 10px 16px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: .85rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  align-items: center;
+  gap: 6px;
+  transition: background .2s ease;
+}
+.dossier-fab:hover { background: #174d7a; }
+
+@media (max-width: 700px) {
+  /* Bouton ✕ visible dans le panel mobile */
+  .dossier-close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .dossier-close-btn:hover {
+    background: var(--surface-2);
+    color: var(--text);
+  }
+
+  /* FAB : visible quand le dossier est disponible mais fermé */
+  body.dossier-available:not(.dossier-open) .dossier-fab {
+    display: flex;
+  }
+
+  /* Backdrop : visible quand le panel est ouvert sur mobile */
+  body.dossier-open .dossier-backdrop {
+    display: block;
+  }
+}

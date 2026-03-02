@@ -65,6 +65,7 @@
         <div class="dossier-header">
           <span class="dossier-icon" aria-hidden="true">📋</span>
           <h2 class="dossier-title" id="dossier-title">Dossier Patient</h2>
+          <button class="dossier-close-btn" id="dossier-close-btn" aria-label="Fermer le dossier" title="Fermer">✕</button>
         </div>
 
         <!-- Identité — toujours visible -->
@@ -117,9 +118,20 @@
   </div>
 
   <!-- ═══════════════════════════════════════════════
+       DOSSIER — ÉLÉMENTS MOBILE
+  ════════════════════════════════════════════════ -->
+  <!-- Backdrop semi-transparent (clic = fermer le dossier) -->
+  <div class="dossier-backdrop" id="dossier-backdrop"></div>
+  <!-- Bouton flottant pour rouvrir le dossier sur mobile -->
+  <button class="dossier-fab" id="dossier-fab" aria-label="Afficher le dossier patient">
+    📋 <span>Dossier</span>
+  </button>
+
+  <!-- ═══════════════════════════════════════════════
        SCRIPTS
        Ordre requis : scenarios.js → app.js
   ════════════════════════════════════════════════ -->
+  <script src="js/scorm-api.js"></script>
   <script src="js/scenarios.js"></script>
   <script src="js/app.js"></script>
 
