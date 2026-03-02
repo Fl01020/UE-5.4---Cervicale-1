@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Module e-learning interactif — Évaluation clinique du rachis cervical. Cas clinique Monsieur F, 53 ans, plombier. Développé pour la formation en kinésithérapie.">
+  <meta name="author" content="Module e-learning Kinésithérapie">
+  <title>Rachis Cervical — Cas clinique Monsieur F</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       HEADER
+  ════════════════════════════════════════════════ -->
+  <header class="app-header" role="banner">
+    <div class="header-inner">
+      <div class="app-logo">
+        Rachis Cervical <span>— Cas clinique M. F</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════
+       BARRE DE PROGRESSION
+  ════════════════════════════════════════════════ -->
+  <nav class="progress-bar-wrap" aria-label="Progression du parcours">
+    <div class="progress-bar-inner">
+      <div class="progress-track" role="progressbar" aria-label="Avancement">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <!-- Marqueurs injectés dynamiquement par app.js -->
+      <div class="progress-markers" id="progress-markers" aria-hidden="true"></div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════
+       CORPS PRINCIPAL
+       Split-screen : contenu principal | dossier patient
+  ════════════════════════════════════════════════ -->
+  <div class="app-layout" id="app-layout">
+
+    <!-- ─── Colonne principale ─── -->
+    <main class="app-body" role="main">
+      <div class="scene-bg" id="scene-bg">
+        <div class="content-wrap">
+
+          <!-- Zone de contenu — injectée par app.js -->
+          <div id="content" aria-live="polite"></div>
+
+        </div>
+      </div>
+    </main>
+
+    <!-- ─── Dossier patient (masqué par défaut, visible dès l'anamnèse) ─── -->
+    <aside
+      class="dossier-panel"
+      id="dossier-panel"
+      role="complementary"
+      aria-label="Dossier patient"
+    >
+      <div class="dossier-inner">
+
+        <!-- En-tête dossier -->
+        <div class="dossier-header">
+          <span class="dossier-icon" aria-hidden="true">📋</span>
+          <h2 class="dossier-title" id="dossier-title">Dossier Patient</h2>
+        </div>
+
+        <!-- Identité — toujours visible -->
+        <div class="dossier-identity" aria-label="Identité du patient">
+          <span class="di-name">Monsieur F</span>
+          <span class="di-meta">53 ans · Plombier</span>
+        </div>
+
+        <!-- ── Fiche anamnèse ──
+             Les champs sont injectés au fil de l'interrogatoire.
+             Couleurs : required (vert) · important (orange) · bonus (gris) -->
+        <div
+          class="dossier-fields"
+          id="dossier-fields"
+          aria-label="Données de l'anamnèse"
+        ></div>
+
+        <!-- ── Fiche examen clinique ──
+             Masquée jusqu'à la fin de l'anamnèse, puis basculée par
+             switchDossierToExam() dans app.js -->
+        <div
+          class="dossier-exam-section"
+          id="dossier-exam-section"
+          style="display: none;"
+          aria-label="Données de l'examen clinique"
+        >
+          <div class="dossier-section-title">Examen clinique</div>
+          <div
+            class="dossier-exam-fields"
+            id="dossier-exam-fields"
+          ></div>
+        </div>
+
+      </div>
+    </aside>
+
+  </div><!-- /.app-layout -->
+
+  <!-- ═══════════════════════════════════════════════
+       ZONE DE CHOIX / SAISIE (sticky bas de page)
+       Contenu injecté dynamiquement selon le type d'étape :
+       · Boutons de choix (step, choix-argumente…)
+       · Textarea + bouton Envoyer (interrogatoire, examen-libre…)
+       · Bouton Continuer seul
+  ════════════════════════════════════════════════ -->
+  <div class="choices-wrap" id="choices-wrap" role="region" aria-label="Zone d'interaction">
+    <div class="choices-inner" id="choices-inner">
+      <div id="choices"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       SCRIPTS
+       Ordre requis : scenarios.js → app.js
+  ════════════════════════════════════════════════ -->
+  <script src="js/scenarios.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
